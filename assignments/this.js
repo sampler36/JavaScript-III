@@ -1,17 +1,14 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1.  2 things to descibe the principles of this and its as follows:
     In a method, this refers to the owner object.
-    Alone, this refers to the global object.
     In a function, this refers to the global object.
-    
-    In an event, this refers to the element that received the event.
-    Methods like call(), and apply() can refer this to any object.
 
-* 2. 
-* 3. 
-* 4. 
+* 2.  we use it when calling a function using "." or dot (this.function)
+
+* 3. launches with out a return function.
+* 4.  Methods like call(), and apply() can refer this to any object.
 *
 * write out a code example of each explanation above
 */
@@ -19,28 +16,28 @@
 // Principle 1
 // ===========code example for Window Binding========
 // method
-// Create an object:
+// Create an object:   when i created the guy in .....speak => 
 const person = {
-    firstName: "John",
-    lastName : "Doe",
+    firstName: "Tale",
+    lastName : "Anto",
     id     : 26,
     fullName : function() {
       return this.firstName + " " + this.lastName;
     }
   };
 
-
+console.log(person)
 
 // Principle 2
 //========== code example for Implicit Binding======
 
 const MyObject = function (){
-    this.name = 'MyObjectName';
-    this.myProperty = 'property';
+    this.name = 'Talent';
+    this.myProperty = 'property'; // implicit stuff
   };
  
   MyObject.prototype.doStuff = function (action) {
-    console.log(this.name + ' is ' + action + '!');
+    console.log(this.name + ' is ' + action + '!');// implicit stuff
   }
  
   const obj = new MyObject();
@@ -50,21 +47,18 @@ const MyObject = function (){
 
 // Principle 3
 // ===============code example for New Binding============
-const sayMyName = function () {
-    console.log('My name is ' + this.name);
-  };
+let runningShoe = function(name, size, color){
+  this.name = name;
+  this.size = size;
+  this.color = color
+}
+let athlete = new runningShoe('nike', 7, 'white');
 
-  const jake = {
-    name: 'Jake'
-  }
-
-  const sayMyName = sayMyName.bind(jake);
-  sayMyName(); // 'My name is Jake'
-
-
-
+console.log(athlete);
 
 // Principle 4
 //===================code example for Explicit Binding========
-const runner = { name: 'John', myFavoriteActivity: 'running' };
+// taking an object from another function
+// occurs when .call(), .apply(), or .bind() are used on a function.
+const runner = { name: 'talent', myFavoriteActivity: 'running' };
   MyObject.prototype.doStuff.call(runner, runner.myFavoriteActivity); // prints 'John is running!';
