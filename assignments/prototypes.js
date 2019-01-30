@@ -14,16 +14,12 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function GameObject(attrs) {
-  this.name = attrs.name;
-  this.weapons = attrs.weapons;
-  this.dimensions = attrs.dimensions;
-  this.healthPoints = attrs.healthPoints;
 
+function GameObject(attrs) {
+this.createdAt = attrs.createdAt;
+this.dimensions = attrs.dimensions;
 }
-GameObject.prototype.createdAt = function(created) {
-  console.log (` Your character is ${this.name} with a  ${this.weapon} height: ${this.dimensions} and health at ${this.healthPoints}`);
-};
+
 
 /*
   === CharacterStats ===
@@ -39,6 +35,11 @@ GameObject.prototype.createdAt = function(created) {
   }
   CharacterStats.prototype = Object.create(GameObject.prototype);
 
+  CharacterStats.prototype.takeDamage = function() {
+   return `${this.name} took damage.`
+  };
+  
+
   CharacterStats.prototype.checkifthisthis = function() {
     if(this.thisthis) {
       return true;
@@ -47,7 +48,6 @@ GameObject.prototype.createdAt = function(created) {
     }
   };
   
-
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -59,15 +59,29 @@ GameObject.prototype.createdAt = function(created) {
   * should inherit takeDamage() from CharacterStats
 */
   function  Humanoid(attrs) {
-    dimensions: {
-      length: 2;
-      width: 1;
-      height: 1;
-   }
-   this.team = attrs.team;
-   this.weapons = attrs.weapons;
+    CharacterStats.call(this, attrs);
+    this.createdAt = attrs.createdAt;
+    this.name = attrs.name;
+    this.team = attrs.team;
+    this.weapons = attrs.weapons;
+    this.healthPoints = attrs.healthPoints;
+    this.language = attrs.language;
+
   }
- 
+  Humanoid.prototype = Object.create(CharacterStats.prototype); //this one take the f from the char stats ....inherit
+
+  Humanoid.prototype.destroy = function(){
+    return `${this.name} was removed from the game `} //
+
+  Humanoid.prototype.greet = function(){
+    return `${this.name} offers a greeting in ${this.language} `};//
+
+  
+    GameObject.prototype.createdAt = function(created) {
+      console.log (` Your character is ${this.name} with a  ${this.weapon} height: ${this.dimensions} and health at ${this.healthPoints}`);
+    };
+  
+  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -126,7 +140,6 @@ GameObject.prototype.createdAt = function(created) {
     ],
     language: 'Elvish',
   });
-/*
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -137,10 +150,25 @@ GameObject.prototype.createdAt = function(created) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
-
+  
+/*
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
   */
+// create a class named person that accepts name, age, height / add a speak method ('hie my name is);
+
+      function Person(props){
+        this.name = props.name;
+        this.age = props.age;
+        this.height = props.height;
+
+      }
+      
+      Person.prototype.speak = function(){
+        return `hie my name is ${this.name}`;
+      }
+       const guy = new Person({name:' Tale', age:25, height:'170 cm'})
+         
+      console.log(guy.speak()); //when it a fucntion double curcly braces;
